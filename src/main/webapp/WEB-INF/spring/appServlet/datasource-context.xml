@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- DBCP 설정 -->
+	<bean class="org.apache.commons.dbcp2.BasicDataSource" id="dataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="micol"/>
+		<property name="password" value="1234"/>
+	</bean>
+	
+	<!-- Mybatis -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+		<property name="dataSource" ref="dataSource"/>
+		<!-- resource폴더(classpath가 resource폴더를 가르킨다)에 있는 해당 파일을 가르킨다. -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<!-- java폴더에 있는 경로폴더를 가르킨다 -->
+		<property name="mapperLocations" value="classpath*:co/won/potal/**/service/*-map.xml"/>
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+	<!-- 기준 경로를 정의 해준다. 여기서 부터 찾아라 -->
+	<mybatis-spring:scan base-package="co.won.potal"/>
+	
+</beans>
