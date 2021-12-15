@@ -1,0 +1,47 @@
+package co.won.potal.board.serviceImpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import co.won.potal.board.service.BoardMapper;
+import co.won.potal.board.service.BoardService;
+import co.won.potal.board.service.BoardVO;
+
+@Repository("boardDao")
+public class BoardServiceImpl implements BoardService {
+	@Autowired
+	BoardMapper map;
+	
+	@Override
+	public List<BoardVO> boardSelectList() {
+		return map.boardSelectList();
+	}
+
+	@Override
+	public BoardVO boardSelect() {
+		return map.boardSelect();
+	}
+
+	@Override
+	public int boardInsert(BoardVO vo) {
+		return map.boardInsert(vo);
+	}
+
+	@Override
+	public int boardUpdate(BoardVO vo) {
+		return map.boardUpdate(vo);
+	}
+
+	@Override
+	public int boardDelete(BoardVO vo) {
+		return map.boardDelete(vo);
+	}
+
+	@Override
+	public List<BoardVO> boardSearchList(String key, String val) {
+		return map.boardSearchList(key, val);
+	}
+
+}
