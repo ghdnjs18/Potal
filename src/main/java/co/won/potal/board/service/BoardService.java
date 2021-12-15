@@ -1,0 +1,13 @@
+package co.won.potal.board.service;
+
+import java.util.List;
+
+public interface BoardService {
+	List<BoardVO> boardSelectList();
+	BoardVO boardSelect();
+	int boardInsert(BoardVO vo);
+	int boardUpdate(BoardVO vo);
+	int boardDelete(BoardVO vo);
+	
+	List<BoardVO> boardSearchList(String key, String val); // 검색용
+}
