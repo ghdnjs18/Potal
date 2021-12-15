@@ -20,8 +20,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO memberSelerct(MemberVO vo) {
-		return map.memberSelerct(vo);
+	public MemberVO memberSelect(MemberVO vo) {
+		return map.memberSelect(vo);
 	}
 
 	@Override

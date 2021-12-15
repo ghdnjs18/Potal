@@ -25,7 +25,7 @@ public class MemberController {
 	// session 객체 : 서버에 보관
 	@PostMapping("/memberLogin.do")
 	public String memberLogin(MemberVO vo, Model model, HttpSession session) {
-		vo = memberDao.memberSelerct(vo); // 아이디 패스워드로 보내서 결과를 vo객체에 받음
+		vo = memberDao.memberSelect(vo); // 아이디 패스워드로 보내서 결과를 vo객체에 받음
 		if (vo != null) {
 			session.setAttribute("id", vo.getId());
 			session.setAttribute("name", vo.getName());

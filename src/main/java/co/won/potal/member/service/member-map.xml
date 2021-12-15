@@ -5,7 +5,7 @@
 		SELECT * FROM MEMBER
 	</select>
 	
-	<select id="memberSelerct" resultType="co.won.potal.member.service.MemberVO">
+	<select id="memberSelect" resultType="co.won.potal.member.service.MemberVO">
 		SELECT * FROM MEMBER WHERE ID = #{id}
 		<if test = "password != null">and password = #{password}</if>
 	</select>

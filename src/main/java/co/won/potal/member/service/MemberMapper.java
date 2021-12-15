@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface MemberMapper {
 	List<MemberVO> memberSelectList();
-	MemberVO memberSelerct(MemberVO vo); // 한명 정보 조회 / 로그인 채크
+	MemberVO memberSelect(MemberVO vo); // 한명 정보 조회 / 로그인 채크
 	int memberInsert(MemberVO vo);
 	int memberUpdate(MemberVO vo);
 	int memberDelete(MemberVO vo);
