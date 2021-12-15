@@ -20,8 +20,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardVO boardSelect() {
-		return map.boardSelect();
+	public BoardVO boardSelect(BoardVO vo) {
+		return map.boardSelect(vo);
 	}
 
 	@Override
@@ -43,5 +43,12 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> boardSearchList(String key, String val) {
 		return map.boardSearchList(key, val);
 	}
+	
+	@Override
+	public void boardHit(int n) {
+		map.boardHit(n);
+	}
+	
+	
 
 }
