@@ -25,7 +25,7 @@
 				</c:if>
 				<c:if test="${id != null }">
 					<li><a href="memberLogout.do">LogOut</a></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="">Notice</a></li>
 					<li><a href="#">About</a></li>
 					<li><a href="#">Product</a></li>
 					<li><a href="#">Service</a></li>

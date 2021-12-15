@@ -8,7 +8,7 @@
 <title>로그인 결과</title>
 </head>
 <body>
-	 <jsp:include page="../home/header.jsp"/>
+	 <jsp:include page="../home/menu.jsp"/>
 	 <div align="center">
 	 	<div>
 	 		<c:if test="${name != null }">
