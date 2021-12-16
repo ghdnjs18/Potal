@@ -76,7 +76,7 @@ public class MemberController {
 	
 	@PostMapping("/memberJoin.do")
 	public String memberJoin(MemberVO vo, MultipartFile file, Model model) {
-		String upload = servletContext.getRealPath("resources");
+		String upload = servletContext.getRealPath("resources"); // resources 폴더를 찾는다.
 		upload = upload + "/fileUpload/"; // 배포시 사용할 파일저장공간
 		String sourceFileName = file.getOriginalFilename(); // 원본파일 명
 		String uuid = UUID.randomUUID().toString(); // 서버저장 파일명 충돌방지를 위해 알리아스명을 사용
@@ -107,5 +107,12 @@ public class MemberController {
 		}
 		
 		return "member/memberJoin";
+	}
+	
+	@RequestMapping("/memberInfo.do")
+	public String memberInfo(MemberVO vo, Model model, HttpSession session) {
+		vo.setId((String) session.getAttribute("id"));
+		model.addAttribute("member", memberDao.memberSelect(vo));
+		return "member/memberInfo";
 	}
 }
