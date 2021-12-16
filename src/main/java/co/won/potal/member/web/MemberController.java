@@ -1,6 +1,7 @@
 package co.won.potal.member.web;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -114,5 +115,11 @@ public class MemberController {
 		vo.setId((String) session.getAttribute("id"));
 		model.addAttribute("member", memberDao.memberSelect(vo));
 		return "member/memberInfo";
+	}
+	
+	@RequestMapping("/ajaxMemberList.do")
+	@ResponseBody
+	public List<MemberVO> ajaxMemberList() {
+		return memberDao.memberSelectList();
 	}
 }
