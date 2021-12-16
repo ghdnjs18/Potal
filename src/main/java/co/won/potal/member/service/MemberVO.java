@@ -15,4 +15,6 @@ public class MemberVO {
 	private String tel;
 	private String address;
 	private String author;
+	private String imgFile;
+	private String pimgFile;
 }

@@ -11,8 +11,8 @@
 	</select>
 	
 	<insert id="memberInsert" parameterType="co.won.potal.member.service.MemberVO">
-		INSERT INTO MEMBER(ID, PASSWORD, NAME, TEL, ADDRESS)
-		VALUES(#{id}, #{password}, #{name}, #{tel}, #{address})
+		INSERT INTO MEMBER(ID, PASSWORD, NAME, TEL, ADDRESS, IMGFILE, PIMGFILE)
+		VALUES(#{id}, #{password}, #{name}, #{tel}, #{address}, #{imgFile}, #{pimgFile})
 	</insert>
 	
 	<!-- 동적 SQL -->
@@ -23,6 +23,8 @@
 		<if test = "tel != null">SET TEL = #{tel}</if>
 		<if test = "address != null">SET ADDRESS = #{address}</if>
 		<if test = "author != null">SET AUTHOR = #{author}</if>
+		<if test = "imgFile != null">SET IMGFILE = #{imgFile}</if>
+		<if test = "pimgFile != null">SET PIMGFILE = #{pimgFile}</if>
 		WHERE ID = #{id}
 	</update>
 	
