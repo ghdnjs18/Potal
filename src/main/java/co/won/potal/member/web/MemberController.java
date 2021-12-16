@@ -54,8 +54,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/idCheck.do")
-	// 호출한 곳으로 돌려주겠다.
-	@ResponseBody
+	@ResponseBody // 호출한 페이지로 값을 돌려주겠다.
 	public String idCheck(@RequestParam("id") String id) {
 		boolean b = memberDao.memberIdCheck(id);
 		if (b) {

@@ -26,7 +26,7 @@ public class BoardController {
 		vo = boardDao.boardSelect(vo);
 		if (vo != null) {
 			model.addAttribute("board", vo); // 글 담고
-			boardDao.boardHit(vo.getHit()); // 조회수 증가
+			boardDao.boardHit(vo.getNo()); // 조회수 증가
 		} else {
 			model.addAttribute("message", "게시글이 존재하지 않습니다.");
 		}
