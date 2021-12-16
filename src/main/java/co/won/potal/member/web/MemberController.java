@@ -44,4 +44,9 @@ public class MemberController {
 		session.invalidate(); // sessiong 
 		return "member/memberLoginResult";
 	}
+	
+	@RequestMapping("/memberJoinForm.do")
+	public String memberJoinForm() {
+		return "member/memberJoinForm";
+	}
 }

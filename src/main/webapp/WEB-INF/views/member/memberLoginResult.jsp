@@ -11,6 +11,7 @@
 	 <jsp:include page="../home/menu.jsp"/>
 	 <div align="center">
 	 	<div>
+	 		
 	 		<c:if test="${name != null }">
 	 			<h1>${name} ${message}</h1>
 	 		</c:if>
