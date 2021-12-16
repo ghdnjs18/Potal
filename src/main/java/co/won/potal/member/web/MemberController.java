@@ -3,6 +3,7 @@ package co.won.potal.member.web;
 import java.io.File;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,11 @@ public class MemberController {
 	@Autowired
 	MemberService memberDao; // DAO 자동주입
 	
+//	@Autowired // 테스트용
+//	String upload; // 파일 저장소 bean 객체로 만들은 것 운영서버 배포시 삭제해야한다.
+	
 	@Autowired
-	String upload; // 파일 저장소 bean 객체로 만들은 것 운영서버 배포시 삭제해야한다.
+	ServletContext servletContext;
 	
 	@RequestMapping("/loginForm.do")
 	public String loginForm() {
@@ -72,7 +76,8 @@ public class MemberController {
 	
 	@PostMapping("/memberJoin.do")
 	public String memberJoin(MemberVO vo, MultipartFile file, Model model) {
-//		String filePath = "/resources/fileUpload/"; // 배포시 사용할 파일저장공간
+		String upload = servletContext.getRealPath("resources");
+		upload = upload + "/fileUpload/"; // 배포시 사용할 파일저장공간
 		String sourceFileName = file.getOriginalFilename(); // 원본파일 명
 		String uuid = UUID.randomUUID().toString(); // 서버저장 파일명 충돌방지를 위해 알리아스명을 사용
 		String targetFileName = uuid + sourceFileName.substring(sourceFileName.lastIndexOf(".")); // 파일 확장자 구하기
@@ -82,17 +87,25 @@ public class MemberController {
 				file.transferTo(new File(upload, targetFileName)); // (저장할 공간, 저장할 파일명)
 				vo.setImgFile(sourceFileName);
 				vo.setPimgFile(targetFileName);
+				
+				int result = memberDao.memberInsert(vo);
+				if (result == 0) {
+					model.addAttribute("message", "회원가입이 실패 했습니다. <br> 다시 가입 해주세요.");
+				} else {
+					model.addAttribute("message", "축하합니다! <br> 회원가입이 성공 했습니다. <br> 로그인 후 사용이 가능합니다.");
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else {
+			int result = memberDao.memberInsert(vo);
+			if (result == 0) {
+				model.addAttribute("message", "회원가입이 실패 했습니다. <br> 다시 가입 해주세요.");
+			} else {
+				model.addAttribute("message", "축하합니다! <br> 회원가입이 성공 했습니다. <br> 로그인 후 사용이 가능합니다.");
+			}
 		}
 		
-		int result = memberDao.memberInsert(vo);
-		if (result == 0) {
-			model.addAttribute("message", "회원가입이 실패 했습니다. <br> 다시 가입 해주세요.");
-		} else {
-			model.addAttribute("message", "축하합니다! <br> 회원가입이 성공 했습니다. <br> 로그인 후 사용이 가능합니다.");
-		}
 		return "member/memberJoin";
 	}
 }
