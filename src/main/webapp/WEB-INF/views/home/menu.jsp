@@ -21,7 +21,7 @@
 				<li><a class="active" href="home.do">Home</a></li>
 				<c:if test="${id eq null }">
 					<li><a href="loginForm.do">Login</a></li>
-					<li><a href="memberJoin.do">MemberJoin</a></li>
+					<li><a href="memberJoinForm.do">MemberJoin</a></li>
 					<li><a href="noticeList.do">Notice</a></li>
 				</c:if>
 				<c:if test="${id != null }">
