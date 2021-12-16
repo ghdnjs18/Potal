@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<property name="maxUploadSize" value="1073741824"/>
+		<property name="defaultEncoding" value="utf-8"/>
+	</bean>
+	
+	<!-- 디렉토리를 인식할때는 슬래쉬 2개로 표시 -->
+	<bean class="java.lang.String" id="upload">
+		<constructor-arg value="c://upload//"/>
+	</bean>
+</beans>

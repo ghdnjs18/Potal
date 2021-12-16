@@ -12,7 +12,7 @@
  	<div align="center">
 	 	<div><h1>회원가입</h1></div>
 	 	<div>
-	 		<form action="memberJoin.do" id="frm" method="post" onsubmit="return formCheck()">
+	 		<form action="memberJoin.do" id="frm" method="post" onsubmit="return formCheck()" enctype="multipart/form-data">
 	 			<div>
 	 				<table border="1">
 	 					<tr>
@@ -47,6 +47,12 @@
 	 						<th width="150">주 소</th>
 	 						<td width="450" colspan="3">
 	 							<input type="text" id="address" name="address" size="68" placeholder="Your address..."> 
+	 						</td>
+	 					</tr>
+	 					<tr>
+	 						<th width="150">사 진</th>
+	 						<td width="450" colspan="3">
+	 							<input type="file" id="file" name="file"> 
 	 						</td>
 	 					</tr>
 	 				</table>

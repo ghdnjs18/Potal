@@ -1,5 +1,8 @@
 package co.won.potal.member.web;
 
+import java.io.File;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +12,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.won.potal.member.service.MemberService;
 import co.won.potal.member.service.MemberVO;
-import oracle.net.aso.m;
 
 @Controller
 public class MemberController {
 	@Autowired
 	MemberService memberDao; // DAO 자동주입
+	
+	@Autowired
+	String upload; // 파일 저장소 bean 객체로 만들은 것 운영서버 배포시 삭제해야한다.
 	
 	@RequestMapping("/loginForm.do")
 	public String loginForm() {
@@ -65,7 +71,22 @@ public class MemberController {
 	}
 	
 	@PostMapping("/memberJoin.do")
-	public String memberJoin(MemberVO vo, Model model) {
+	public String memberJoin(MemberVO vo, MultipartFile file, Model model) {
+//		String filePath = "/resources/fileUpload/"; // 배포시 사용할 파일저장공간
+		String sourceFileName = file.getOriginalFilename(); // 원본파일 명
+		String uuid = UUID.randomUUID().toString(); // 서버저장 파일명 충돌방지를 위해 알리아스명을 사용
+		String targetFileName = uuid + sourceFileName.substring(sourceFileName.lastIndexOf(".")); // 파일 확장자 구하기
+		
+		if (!sourceFileName.isEmpty()) { // 파일이 존재할 때만 연결해 준다.
+			try {
+				file.transferTo(new File(upload, targetFileName)); // (저장할 공간, 저장할 파일명)
+				vo.setImgFile(sourceFileName);
+				vo.setPimgFile(targetFileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		int result = memberDao.memberInsert(vo);
 		if (result == 0) {
 			model.addAttribute("message", "회원가입이 실패 했습니다. <br> 다시 가입 해주세요.");
