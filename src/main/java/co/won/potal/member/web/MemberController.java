@@ -7,9 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.won.potal.member.service.MemberService;
 import co.won.potal.member.service.MemberVO;
+import oracle.net.aso.m;
 
 @Controller
 public class MemberController {
@@ -48,5 +51,28 @@ public class MemberController {
 	@RequestMapping("/memberJoinForm.do")
 	public String memberJoinForm() {
 		return "member/memberJoinForm";
+	}
+	
+	@PostMapping("/idCheck.do")
+	// 호출한 곳으로 돌려주겠다.
+	@ResponseBody
+	public String idCheck(@RequestParam("id") String id) {
+		boolean b = memberDao.memberIdCheck(id);
+		if (b) {
+			return "0"; // 존재할 때
+		} else {
+			return "1"; // 존재하지 않을 때
+		}
+	}
+	
+	@PostMapping("/memberJoin.do")
+	public String memberJoin(MemberVO vo, Model model) {
+		int result = memberDao.memberInsert(vo);
+		if (result == 0) {
+			model.addAttribute("message", "회원가입이 실패 했습니다. <br> 다시 가입 해주세요.");
+		} else {
+			model.addAttribute("message", "축하합니다! <br> 회원가입이 성공 했습니다. <br> 로그인 후 사용이 가능합니다.");
+		}
+		return "member/memberJoin";
 	}
 }

@@ -31,7 +31,7 @@
 	</delete>
 	
 	<select id="memberIdCheck" parameterType="String" resultType="boolean">
-		SELECT CASE WHEN COUNT(*) = 1 THEN 'True' ELSE 'False' END AS RESULT
-		FROM MEMBER WHERE ID = #{id};
+		SELECT CASE WHEN COUNT(*) = 1 THEN 1 ELSE 0 END AS RESULT
+		FROM MEMBER WHERE ID = #{id}
 	</select>
 </mapper>
